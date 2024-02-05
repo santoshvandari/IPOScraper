@@ -17,7 +17,7 @@ class IpoSpider(scrapy.Spider):
                             )
                             )
     async def parse(self, response):
-        tabledata= response.css('table#example tbody')
+        tabledata= response.css('table#example tbody tr')
         # opening json file 
         with open('ipodata.json', 'w') as f:
             f.write('[')
@@ -35,8 +35,6 @@ class IpoSpider(scrapy.Spider):
                 issue_manager = (data.css('td:nth-child(5)::text').get()).strip()
                 opening_date = data.css('td:nth-child(6)::text').get().replace('/', '-')
                 closing_date = data.css('td:nth-child(7)::text').get().replace('/', '-')
-
-                # writing data to json file
                 f.write('{\n')
                 f.write(f'"company_name": "{company_name}",\n"symbol":"{symbol}",\n"total_unit": {total_issue_unit},\n"issue_type":"{issue_type}",\n"issue_manager":"{issue_manager}",\n"opening_date": "{opening_date}",\n"closing_date": "{closing_date}"\n')
                 f.write('},')
