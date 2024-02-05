@@ -1,0 +1,4 @@
+venv/
+*.json
+IPOCrawler/__pycache__/
+IPOCrawler/spiders/__pycache__/
